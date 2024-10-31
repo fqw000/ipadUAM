@@ -1,8 +1,10 @@
+ipadUAM_path="$(pwd)"
+${ipadUAM_path}
 function connect_ipad(){
     # flag=`ioreg -lw0 | grep "IODisplay" | grep -o '"IOHIDUserDevice"=[0-9]*' | awk -F= '{print $2}'`
     # /usr/sbin/system_profiler SPDisplaysDataType
     echo "===== connect_ipad ======"
-    num=$(grep -o '[0-9]\+' /Users/wangqifei/Documents/ipadUAM/sidecar/num)
+    num=$(grep -o '[0-9]\+' ${ipadUAM_path}/sidecar/num)
 
     # 连续失败超过5次，则不再尝试
     if [[ $num -gt 5 ]]; then
@@ -22,12 +24,12 @@ function connect_ipad(){
     if [[ $flag -eq 1 ]]; then
         # 连接成功，失败计数器清零
         echo "连接成功，失败计数器清零"
-        echo "0" > /Users/wangqifei/Documents/ipadUAM/sidecar/num
+        echo "0" > ${ipadUAM_path}/sidecar/num
     else
         # 连接成功，失败计数器加一
         echo "连接失败，失败计数器加一"
         num=$((num + 1))
-        echo "$num" > /Users/wangqifei/Documents/ipadUAM/sidecar/num
+        echo "$num" > ${ipadUAM_path}/sidecar/num
     fi
     echo "===== end connect_ipad ======"
 }
@@ -36,7 +38,7 @@ function disconnect_ipad(){
     echo "===== disconnect_ipad ======"
     # flag=`ioreg -lw0 | grep "IODisplay" | grep -o '"IOHIDUserDevice"=[0-9]*' | awk -F= '{print $2}'`
     # /usr/sbin/system_profiler SPDisplaysDataType
-    num=$(grep -o '[0-9]\+' /Users/wangqifei/Documents/ipadUAM/sidecar/num)
+    num=$(grep -o '[0-9]\+' ${ipadUAM_path}/sidecar/num)
 
     # 连续失败超过5次，则不再尝试
     if [[ $num -gt 5 ]]; then
@@ -58,11 +60,11 @@ function disconnect_ipad(){
         # 断开失败，失败计数器+1
         echo "断开失败，失败计数器+1"
         num=$((num + 1))
-        echo "$num" > /Users/wangqifei/Documents/ipadUAM/sidecar/num
+        echo "$num" > ${ipadUAM_path}/sidecar/num
     else
         # 断开成功，失败计数器清零
         echo "断开失败，失败计数器+1"
-        echo "0" > /Users/wangqifei/Documents/ipadUAM/sidecar/num
+        echo "0" > ${ipadUAM_path}/sidecar/num
     fi
     echo "===== disconnect_ipad ======"
 }
@@ -72,9 +74,8 @@ while true
 do
     # info=$(/usr/sbin/system_profiler SPDisplaysDataType)
     # echo $info
-    ipaUAM_path="$(pwd)"
-    exp_flag="$(cat $ipadUAM_path/sidercat/connect_flag"
-    # exp_flag=`cat /Users/wangqifei/Documents/ipadUAM/sidecar/connect_flag`
+    exp_flag="$(cat ${ipadUAM_path}/sidercat/connect_flag"
+    # exp_flag=`cat ${ipadUAM_path}/sidecar/connect_flag`
     echo "exp_flag $exp_flag"
     if [[ $exp_flag -eq 1 ]]; then
         connect_ipad
