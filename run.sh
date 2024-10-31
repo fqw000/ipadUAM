@@ -22,8 +22,9 @@ stop() {
 # start: 启动进程
 start() {
     # todo: 需要根据情况自行实现
-     /Users/wangqifei/Documents/ipadUAM/venv/bin/python /Users/wangqifei/Documents/ipadUAM//main.py &
-    # sh /Users/wangqifei/Documents/ipadUAM//sidecar/run_sidecar.sh &
+    ipadUAM_path="$(pwd)"
+     ${ipadUAM_path}/venv/bin/python ${ipadUAM_path}/main.py &
+    # sh ${ipadUAM_path}/sidecar/run_sidecar.sh &
 }
 
 # health_check: 健康检查，但进程不存在时自动拉起
