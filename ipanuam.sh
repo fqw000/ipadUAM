@@ -4,4 +4,5 @@
 source /Users/wangqifei/Documents/ipadUAM/venv/bin/activate
 
 # 执行 Python 脚本
-python3 /Users/wangqifei/Documents/ipadUAM/main.py
+ipaUAM_path="$(pwd)"
+python3 ${ipaUAM_path}/main.py
