@@ -9,7 +9,7 @@ from pywebio.session import *
 from tornado.web import create_signed_value, decode_signed_value
 from lib.sidecar import SidecarTask
 
-
+ipadUAM_path = os.getcwd()
 class LocalStorage():
     @staticmethod
     def set(key, value):
@@ -83,9 +83,9 @@ def connect_ipad():
     触发随航连接ipad
     """
     SidecarTask.connect_ipad()
-    os.system("echo '0' > /Users/wangqifei/Documents/ipadUAM/sidecar/num")
-    os.system("echo '1' > /Users/wangqifei/Documents/ipadUAM/sidecar/connect_flag")
-    os.system("sh /Users/wangqifei/Documents/ipadUAM/sidecar/run.sh health_check")
+    os.system("echo '0' > {ipadUAM_path}/sidecar/num")
+    os.system("echo '1' >  {ipadUAM_path}/sidecar/connect_flag")
+    os.system("sh  {ipadUAM_path}/sidecar/run.sh health_check")
     toast("已触发连接 iPad", color="success")
     return index()
 
@@ -97,9 +97,10 @@ def disconnect_ipad():
     触发随航断开 ipad
     """
     SidecarTask.disconnect_ipad()
-    os.system("echo '0' > /Users/wangqifei/Documents/ipadUAM/sidecar/num")
-    os.system("echo '0' > /Users/wangqifei/Documents/ipadUAM/sidecar/connect_flag")
-    os.system("/bin/sh /Users/wangqifei/Documents/ipadUAM/sidecar/run.sh health_check")
+    
+    os.system("echo '0' >  {ipadUAM_path}/sidecar/num")
+    os.system("echo '0' > {ipadUAM_path}/sidecar/connect_flag")
+    os.system("/bin/sh  {ipadUAM_path}/sidecar/run.sh health_check")
     toast("已触发断开 iPad", color="success")
     return index()
 
@@ -112,8 +113,8 @@ def stop_ipad_task():
     """
     SidecarTask.disable_task()
 
-    os.system("echo '9' > /Users/wangqifei/Documents/ipadUAM/sidecar/num")
-    os.system("/bin/sh /Users/wangqifei/Documents/ipadUAM/sidecar/run.sh health_check")
+    os.system("echo '9' >  {ipadUAM_path}/sidecar/num")
+    os.system("/bin/sh  {ipadUAM_path}/sidecar/run.sh health_check")
     toast("已停止自动重连", color="success")
     return index()
 
