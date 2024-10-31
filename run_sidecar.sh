@@ -72,7 +72,9 @@ while true
 do
     # info=$(/usr/sbin/system_profiler SPDisplaysDataType)
     # echo $info
-    exp_flag=`cat /Users/wangqifei/Documents/ipadUAM/sidecar/connect_flag`
+    ipaUAM_path="$(pwd)"
+    exp_flag="$(cat $ipadUAM_path/sidercat/connect_flag"
+    # exp_flag=`cat /Users/wangqifei/Documents/ipadUAM/sidecar/connect_flag`
     echo "exp_flag $exp_flag"
     if [[ $exp_flag -eq 1 ]]; then
         connect_ipad
